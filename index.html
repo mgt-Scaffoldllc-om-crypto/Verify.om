@@ -3,85 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>M.G.T Record Verification</title>
+    <title>M.G.T Verification</title>
     <style>
-        :root { --primary-blue: #1a237e; --accent-red: #d32f2f; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #e9ecef; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
-        header { width: 100%; background: var(--primary-blue); color: white; padding: 25px 0; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-        .main-logo { width: 120px; height: auto; margin-bottom: 15px; display: block; margin-left: auto; margin-right: auto; filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.3)); }
-        .heading-main { font-size: 19px; font-weight: bold; margin: 0; padding: 0 15px; text-transform: uppercase; line-height: 1.4; }
-        .sub-heading { font-size: 16px; margin-top: 8px; color: #ffeb3b; font-weight: bold; }
-        .container { background: white; width: 90%; max-width: 450px; margin-top: 35px; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-top: 6px solid var(--accent-red); text-align: center; }
-        input[type="text"] { width: 100%; padding: 15px; margin-bottom: 20px; border: 2px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 16px; text-align: center; outline: none; }
-        button { width: 100%; background: var(--primary-blue); color: white; padding: 15px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; }
-        #resultCard { display: none; background: white; width: 95%; max-width: 550px; margin: 30px 0; border-radius: 15px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.15); border: 1px solid #ddd; }
-        .result-header { padding: 25px; display: flex; align-items: center; gap: 20px; }
-        .profile-pic { width: 110px; height: 135px; border: 3px solid var(--primary-blue); border-radius: 5px; object-fit: cover; }
-        .info-grid { padding: 20px; display: grid; grid-template-columns: 1fr 1.5fr; gap: 12px; font-size: 14px; text-align: left; }
-        .label { font-weight: bold; color: #555; background: #f8f9fa; padding: 10px; border-radius: 5px; border-left: 4px solid var(--primary-blue); }
-        .value { padding: 10px; color: #222; border-bottom: 1px solid #f0f0f0; }
-        footer { margin-top: auto; padding: 30px; font-size: 13px; color: #666; text-align: center; }
-        .loader { display: none; border: 4px solid #f3f3f3; border-top: 4px solid var(--primary-blue); border-radius: 50%; width: 35px; height: 35px; animation: spin 1s linear infinite; margin: 20px auto; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        :root { --p-blue: #1a237e; --a-red: #d32f2f; }
+        body { font-family: 'Segoe UI', sans-serif; background: #e9ecef; margin: 0; text-align: center; }
+        header { background: var(--p-blue); color: white; padding: 30px 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .logo { width: 130px; height: auto; margin-bottom: 15px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3)); }
+        .h1 { font-size: 18px; font-weight: bold; text-transform: uppercase; margin: 0; }
+        .h2 { font-size: 15px; color: #ffeb3b; margin-top: 5px; }
+        .box { background: white; width: 90%; max-width: 400px; margin: 40px auto; padding: 30px; border-radius: 12px; border-top: 6px solid var(--a-red); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        input { width: 100%; padding: 15px; margin-bottom: 20px; border: 2px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 16px; }
+        button { width: 100%; background: var(--p-blue); color: white; padding: 15px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        #result { display: none; background: white; width: 95%; max-width: 500px; margin: 20px auto; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .res-head { padding: 20px; display: flex; align-items: center; gap: 15px; border-bottom: 1px solid #eee; }
+        .p-img { width: 100px; height: 120px; border: 2px solid var(--p-blue); object-fit: cover; }
+        .info { padding: 15px; text-align: left; display: grid; grid-template-columns: 1fr 1.5fr; gap: 10px; font-size: 14px; }
+        .l { font-weight: bold; background: #f0f2f5; padding: 8px; border-radius: 4px; }
+        .v { padding: 8px; border-bottom: 1px solid #eee; }
     </style>
 </head>
 <body>
+
 <header>
-    <img src="https://raw.githubusercontent.com/mgt-om-crypto/mgt-certificate-verify/main/27764.png" alt="MGT Logo" class="main-logo">
-    <div class="heading-main">CONSTRUCTION INDUSTRY SCAFFOLDERS RECORD SCHEME</div>
-    <div class="sub-heading">Organization: M.G.T</div>
+    <img src="https://i.ibb.co/LzN2mD1/mgt-logo.png" alt="MGT" class="logo">
+    <div class="h1">CONSTRUCTION INDUSTRY SCAFFOLDERS RECORD SCHEME</div>
+    <div class="h2">Organization: M.G.T</div>
 </header>
-<div class="container" id="searchBox">
-    <div id="loader" class="loader"></div>
-    <input type="text" id="certInput" placeholder="Enter Resident ID / Iqama">
-    <button onclick="verifyID()">SEARCH RECORD</button>
+
+<div class="box" id="searchArea">
+    <input type="text" id="idInput" placeholder="Enter Resident ID">
+    <button onclick="check()">VERIFY NOW</button>
 </div>
-<div id="resultCard">
-    <div class="result-header">
-        <img id="u_photo" src="" alt="Photo" class="profile-pic" onerror="this.src='https://via.placeholder.com/110x135?text=No+Photo'">
-        <div>
-            <div id="u_resident" style="color: var(--accent-red); font-weight: bold; font-size: 18px; margin-bottom: 5px;"></div>
-            <div id="u_name" style="font-weight: bold; font-size: 20px; color: #1a237e;"></div>
+
+<div id="result">
+    <div class="res-head">
+        <img id="u-img" src="" class="p-img">
+        <div style="text-align: left;">
+            <div id="u-id" style="color:red; font-weight:bold;"></div>
+            <div id="u-name" style="font-size: 18px; font-weight:bold; color:var(--p-blue);"></div>
         </div>
     </div>
-    <div class="info-grid" id="infoContent"></div>
-    <button onclick="window.location.reload()" style="margin: 20px; width: calc(100% - 40px); background: #666; color: white; padding: 12px; border: none; border-radius: 8px;">NEW SEARCH</button>
+    <div class="info" id="info-box"></div>
+    <button onclick="location.reload()" style="margin:15px; width:80%; background:#666;">NEW SEARCH</button>
 </div>
-<footer>
-    © 2026 M.G.T - Management Group Training.<br>
-    Verified Record Scheme for Construction Industry Scaffolders.
-</footer>
+
 <script>
-    if (window.location.href.includes("index.html")) {
-        window.history.replaceState({}, document.title, window.location.pathname.replace("index.html", ""));
-    }
-    async function verifyID() {
-        const inputID = document.getElementById('certInput').value.trim();
-        const loader = document.getElementById('loader');
-        if (!inputID) { alert("Please enter ID!"); return; }
-        loader.style.display = "block";
-        const sheetId = '1VUOSxbE0F58jZliNYntcalr47nw4I0of8gS3IUFkS0Q';
-        const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv`;
+    async function check() {
+        const id = document.getElementById('idInput').value.trim();
+        if(!id) return alert("Enter ID");
+        
+        const sId = '1VUOSxbE0F58jZliNYntcalr47nw4I0of8gS3IUFkS0Q';
+        const url = `https://docs.google.com/spreadsheets/d/${sId}/gviz/tq?tqx=out:csv`;
+
         try {
-            const response = await fetch(url);
-            const data = await response.text();
-            const rows = data.split('\n').map(row => row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(cell => cell.replace(/"/g, '').trim()));
-            const match = rows.find(row => row[3] === inputID);
-            if (match) {
-                document.getElementById('u_resident').innerText = "ID: " + match[3];
-                document.getElementById('u_name').innerText = match[0];
-                document.getElementById('infoContent').innerHTML = `
-                    <div class="label">NAME</div> <div class="value">${match[0]}</div>
-                    <div class="label">LOCATION</div> <div class="value">${match[2]}</div>
-                    <div class="label">ISSUE DATE</div> <div class="value">${match[4]}</div>
-                    <div class="label">EXPIRY DATE</div> <div class="value" style="color:red; font-weight:bold;">${match[5]}</div>
-                    <div class="label">STATUS</div> <div class="value" style="color:green; font-weight:bold;">✓ VERIFIED</div>`;
-                document.getElementById('u_photo').src = match[7]; 
-                document.getElementById('resultCard').style.display = "block";
-                document.getElementById('searchBox').style.display = "none";
-            } else { alert("Not Found!"); }
+            const res = await fetch(url);
+            const csv = await res.text();
+            const rows = csv.split('\n').map(r => r.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(c => c.replace(/"/g, '').trim()));
+            const data = rows.find(r => r[3] === id);
+
+            if(data) {
+                document.getElementById('u-id').innerText = "ID: " + data[3];
+                document.getElementById('u-name').innerText = data[0];
+                document.getElementById('u-img').src = data[7];
+                document.getElementById('info-box').innerHTML = `
+                    <div class="l">NAME</div><div class="v">${data[0]}</div>
+                    <div class="l">LOCATION</div><div class="v">${data[2]}</div>
+                    <div class="l">EXPIRY</div><div class="v" style="color:red; font-weight:bold;">${data[5]}</div>
+                    <div class="l">STATUS</div><div class="v" style="color:green; font-weight:bold;">✓ VERIFIED</div>
+                `;
+                document.getElementById('result').style.display = "block";
+                document.getElementById('searchArea').style.display = "none";
+            } else { alert("Record Not Found"); }
         } catch (e) { alert("Error!"); }
-        finally { loader.style.display = "none"; }
     }
 </script>
 </body>
