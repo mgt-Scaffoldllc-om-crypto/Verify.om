@@ -7,7 +7,7 @@ index.html
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>M.G.T Record Verification</title>
 
-<!-- মোবাইল অ্যাপ মোড সক্রিয় করার জন্য মেটা ট্যাগ -->
+<!-- মোবাইল অ্যাপ মোড সক্রিয় করা -->
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -16,27 +16,31 @@ index.html
 :root { --primary-blue: #1a237e; --accent-red: #d32f2f; }
 body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #e9ecef; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
 
-/* লোগো এবং হেডার স্টাইল */
-header { width: 100%; background: var(--primary-blue); color: white; padding: 25px 0; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-.main-logo { width: 110px; height: auto; margin-bottom: 12px; display: block; margin-left: auto; margin-right: auto; filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.3)); }
-.heading-main { font-size: 18px; font-weight: bold; margin: 0; padding: 0 15px; text-transform: uppercase; line-height: 1.4; }
+/* হেডার ও লোগো ডিজাইন */
+header { width: 100%; background: var(--primary-blue); color: white; padding: 25px 0; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+.main-logo { width: 120px; height: auto; margin-bottom: 15px; display: block; margin-left: auto; margin-right: auto; filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.3)); }
+.heading-main { font-size: 18px; font-weight: bold; margin: 0; padding: 0 15px; text-transform: uppercase; line-height: 1.4; letter-spacing: 1px; }
 .sub-heading { font-size: 15px; margin-top: 8px; color: #ffeb3b; font-weight: bold; }
 
+/* ইনপুট বক্স ডিজাইন */
 .container { background: white; width: 90%; max-width: 450px; margin-top: 30px; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-top: 5px solid var(--accent-red); }
-h2 { font-size: 18px; color: #333; margin-top: 0; }
-input[type="text"] { width: 100%; padding: 15px; margin: 20px 0; border: 2px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 16px; outline: none; }
-button { width: 100%; background: var(--primary-blue); color: white; padding: 15px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; }
+h2 { font-size: 18px; color: #333; margin-top: 0; text-align: center; }
+input[type="text"] { width: 100%; padding: 15px; margin: 20px 0; border: 2px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 16px; outline: none; text-align: center; }
+button { width: 100%; background: var(--primary-blue); color: white; padding: 15px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+button:hover { background: #0d47a1; }
 
+/* রেজাল্ট কার্ড ডিজাইন */
 #resultCard { display: none; background: white; width: 95%; max-width: 550px; margin: 30px 0; border-radius: 15px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.15); border: 1px solid #ddd; }
-.result-header { padding: 20px; display: flex; align-items: center; gap: 20px; background: #fff; }
-.profile-pic { width: 110px; height: 135px; border: 3px solid var(--primary-blue); border-radius: 5px; object-fit: cover; }
+.result-header { padding: 20px; display: flex; align-items: center; gap: 20px; background: #fff; border-bottom: 1px solid #eee; }
+.profile-pic { width: 110px; height: 135px; border: 3px solid var(--primary-blue); border-radius: 5px; object-fit: cover; background: #f0f0f0; }
 
 .info-grid { padding: 20px; display: grid; grid-template-columns: 1fr 1.5fr; gap: 12px; font-size: 14px; }
 .label { font-weight: bold; color: #555; background: #f8f9fa; padding: 10px; border-radius: 5px; border-left: 4px solid var(--primary-blue); }
-.value { padding: 10px; color: #222; border-bottom: 1px solid #f0f0f0; }
+.value { padding: 10px; color: #222; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; }
 
+/* কিউআর কোড */
 .qr-section { text-align: center; padding: 20px; background: #f9f9f9; border-top: 1px dashed #ccc; }
-.qr-section img { width: 120px; height: 120px; border: 5px solid white; }
+.qr-section img { width: 120px; height: 120px; border: 5px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
 
 footer { margin-top: auto; padding: 25px; font-size: 12px; color: #666; text-align: center; line-height: 1.6; }
 .loader { display: none; border: 4px solid #f3f3f3; border-top: 4px solid var(--primary-blue); border-radius: 50%; width: 35px; height: 35px; animation: spin 1s linear infinite; margin: 20px auto; }
@@ -46,17 +50,16 @@ footer { margin-top: auto; padding: 25px; font-size: 12px; color: #666; text-ali
 <body>
 
 <header>
-    <!-- সরাসরি গিটহাব ফাইল পাথ ব্যবহার করা হয়েছে -->
-    <img src="./27764.png" alt="MGT Logo" class="main-logo" id="mgtLogo">
+    <!-- আপনার লোগো ফাইল সরাসরি কল করা হয়েছে -->
+    <img src="27764.png" alt="MGT Logo" class="main-logo" onerror="this.src='https://via.placeholder.com/120?text=MGT+Logo'">
     <div class="heading-main">CONSTRUCTION INDUSTRY SCAFFOLDERS RECORD SCHEME</div>
     <div class="sub-heading">Organization: M.G.T</div>
 </header>
 
 <div class="container" id="searchBox">
     <h2>Record Verification Portal</h2>
-    <p style="font-size: 14px; color: #666;">Enter your Resident ID / Iqama Number to verify</p>
     <div id="loader" class="loader"></div>
-    <input type="text" id="certInput" placeholder="Ex: 357538638">
+    <input type="text" id="certInput" placeholder="Enter Resident ID / Iqama">
     <button onclick="verifyID()">SEARCH RECORD</button>
 </div>
 
@@ -65,7 +68,7 @@ footer { margin-top: auto; padding: 25px; font-size: 12px; color: #666; text-ali
     <div class="result-header">
         <img id="u_photo" src="" alt="Photo" class="profile-pic" onerror="this.src='https://via.placeholder.com/110x135?text=No+Photo'">
         <div>
-            <div id="u_resident" style="color: var(--accent-red); font-weight: bold; font-size: 18px;"></div>
+            <div id="u_resident" style="color: var(--accent-red); font-weight: bold; font-size: 18px; margin-bottom: 5px;"></div>
             <div id="u_name" style="font-weight: bold; font-size: 20px; color: #1a237e;"></div>
         </div>
     </div>
@@ -82,25 +85,22 @@ footer { margin-top: auto; padding: 25px; font-size: 12px; color: #666; text-ali
 
     <div class="qr-section">
         <img id="qr_image" src="" alt="QR Code">
-        <div style="font-size: 11px; color: #777; margin-top: 8px;">Scan to verify this record online</div>
+        <div style="font-size: 11px; color: #777; margin-top: 8px; text-transform: uppercase;">Scan to verify this record online</div>
     </div>
 
     <button onclick="window.location.reload()" style="margin: 20px; width: calc(100% - 40px); background: #666;">NEW SEARCH</button>
 </div>
 
 <footer>
-    © 2014 M.G.T - Management Group Training.<br>
+    © 2026 M.G.T - Management Group Training.<br>
     Verified Record Scheme for Construction Industry Scaffolders.
 </footer>
 
 <script>
-// ১. URL থেকে index.html লুকানোর জন্য শক্তিশালী স্ক্রিপ্ট
-(function() {
-    if (window.location.pathname.indexOf('index.html') !== -1) {
-        var cleanUrl = window.location.pathname.replace('index.html', '');
-        window.history.replaceState({}, document.title, cleanUrl);
-    }
-})();
+// ১. ব্রাউজারের অ্যাড্রেস বার থেকে index.html সরানোর কোড
+if (window.location.href.includes("index.html")) {
+    window.history.replaceState({}, document.title, window.location.pathname.replace("index.html", ""));
+}
 
 async function verifyID() {
     const inputID = document.getElementById('certInput').value.trim();
@@ -115,17 +115,18 @@ async function verifyID() {
 
     loader.style.display = "block";
 
-    // গুগল শিট ডাটা সোর্স
+    // আপনার গুগল শিট আইডি
     const sheetId = '1VUOSxbE0F58jZliNYntcalr47nw4I0of8gS3IUFkS0Q';
     const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv`;
 
     try {
         const response = await fetch(url);
-        const data = await response.text();
-        const rows = data.split('\n').map(row => 
+        const csvData = await response.text();
+        const rows = csvData.split('\n').map(row => 
             row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(cell => cell.replace(/"/g, '').trim())
         );
 
+        // শিটের ৪র্থ কলাম (Index 3) অনুযায়ী আইডি ম্যাচ করা
         const match = rows.find(row => row[3] === inputID);
 
         if (match) {
@@ -140,8 +141,8 @@ async function verifyID() {
             document.getElementById('u_photo').src = match[7]; 
 
             // QR Code জেনারেট করা
-            const currentSiteURL = window.location.href;
-            document.getElementById('qr_image').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(currentSiteURL)}`;
+            const currentURL = window.location.href;
+            document.getElementById('qr_image').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(currentURL)}`;
 
             resultCard.style.display = "block";
             searchBox.style.display = "none";
@@ -149,7 +150,7 @@ async function verifyID() {
             alert("No Record Found for ID: " + inputID);
         }
     } catch (error) {
-        alert("System Error. Please check connection.");
+        alert("Error connecting to database.");
     } finally {
         loader.style.display = "none";
     }
