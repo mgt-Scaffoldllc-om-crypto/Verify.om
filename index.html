@@ -3,79 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>M.G.T Verification</title>
+    <title>M.G.T - Scaffolder Record Verification</title>
     <style>
-        :root { --p-blue: #1a237e; --a-red: #d32f2f; }
-        body { font-family: 'Segoe UI', sans-serif; background: #e9ecef; margin: 0; text-align: center; }
-        header { background: var(--p-blue); color: white; padding: 30px 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-        .logo { width: 130px; height: auto; margin-bottom: 15px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3)); }
-        .h1 { font-size: 18px; font-weight: bold; text-transform: uppercase; margin: 0; }
-        .h2 { font-size: 15px; color: #ffeb3b; margin-top: 5px; }
-        .box { background: white; width: 90%; max-width: 400px; margin: 40px auto; padding: 30px; border-radius: 12px; border-top: 6px solid var(--a-red); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        input { width: 100%; padding: 15px; margin-bottom: 20px; border: 2px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 16px; }
-        button { width: 100%; background: var(--p-blue); color: white; padding: 15px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
-        #result { display: none; background: white; width: 95%; max-width: 500px; margin: 20px auto; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-        .res-head { padding: 20px; display: flex; align-items: center; gap: 15px; border-bottom: 1px solid #eee; }
-        .p-img { width: 100px; height: 120px; border: 2px solid var(--p-blue); object-fit: cover; }
-        .info { padding: 15px; text-align: left; display: grid; grid-template-columns: 1fr 1.5fr; gap: 10px; font-size: 14px; }
-        .l { font-weight: bold; background: #f0f2f5; padding: 8px; border-radius: 4px; }
-        .v { padding: 8px; border-bottom: 1px solid #eee; }
+        :root { --primary-blue: #1a237e; --accent-red: #d32f2f; --bg-gray: #f8f9fa; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #e9ecef; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        
+        header { width: 100%; background: var(--primary-blue); color: white; padding: 20px 0; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .heading-main { font-size: 20px; font-weight: bold; letter-spacing: 1px; margin: 0; padding: 0 10px; text-transform: uppercase; }
+        .sub-heading { font-size: 16px; margin-top: 5px; color: #ffeb3b; font-weight: bold; }
+
+        .container { background: white; width: 90%; max-width: 450px; margin-top: 40px; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-top: 5px solid var(--accent-red); }
+        h2 { font-size: 18px; color: #333; margin-top: 0; }
+        input[type="text"] { width: 100%; padding: 15px; margin: 20px 0; border: 2px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 16px; outline: none; transition: 0.3s; }
+        input[type="text"]:focus { border-color: var(--primary-blue); }
+        button { width: 100%; background: var(--primary-blue); color: white; padding: 15px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
+        button:hover { background: #0d47a1; transform: translateY(-1px); }
+
+        #resultCard { display: none; background: white; width: 95%; max-width: 550px; margin: 30px 0; border-radius: 15px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.15); border: 1px solid #ddd; }
+        .org-tag { background: #f1f1f1; padding: 10px; text-align: center; font-weight: bold; color: var(--primary-blue); border-bottom: 1px solid #eee; }
+        .result-header { padding: 20px; display: flex; align-items: center; gap: 20px; background: linear-gradient(to right, #ffffff, #f9f9f9); }
+        .profile-pic { width: 110px; height: 135px; border: 3px solid var(--primary-blue); border-radius: 5px; object-fit: cover; background: #eee; }
+        .user-id-header { color: var(--accent-red); font-weight: bold; font-size: 18px; margin-bottom: 5px; }
+        
+        .info-grid { padding: 20px; display: grid; grid-template-columns: 1fr 1.5fr; gap: 12px; font-size: 14px; background: white; }
+        .label { font-weight: bold; color: #555; background: #f8f9fa; padding: 10px; border-radius: 5px; border-left: 4px solid var(--primary-blue); }
+        .value { padding: 10px; color: #222; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; }
+
+        /* QR Code Styling */
+        .qr-section { text-align: center; padding: 20px; background: #f9f9f9; border-top: 1px dashed #ccc; }
+        .qr-section img { width: 120px; height: 120px; border: 5px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .qr-text { font-size: 11px; color: #777; margin-top: 8px; text-transform: uppercase; }
+
+        footer { margin-top: auto; padding: 25px; font-size: 12px; color: #666; text-align: center; line-height: 1.6; }
+        .loader { display: none; border: 4px solid #f3f3f3; border-top: 4px solid var(--primary-blue); border-radius: 50%; width: 35px; height: 35px; animation: spin 1s linear infinite; margin: 20px auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
 <header>
-    <img src="https://i.ibb.co/LzN2mD1/mgt-logo.png" alt="MGT" class="logo">
-    <div class="h1">CONSTRUCTION INDUSTRY SCAFFOLDERS RECORD SCHEME</div>
-    <div class="h2">Organization: M.G.T</div>
+    <div class="heading-main">CONSTRUCTION INDUSTRY SCAFFOLDERS RECORD SCHEME</div>
+    <div class="sub-heading">Organization: M.G.T</div>
 </header>
 
-<div class="box" id="searchArea">
-    <input type="text" id="idInput" placeholder="Enter Resident ID">
-    <button onclick="check()">VERIFY NOW</button>
+<div class="container" id="searchBox">
+    <h2>Record Verification Portal</h2>
+    <p style="font-size: 14px; color: #666;">Enter your Resident ID / Iqama Number to verify</p>
+    <div id="loader" class="loader"></div>
+    <input type="text" id="certInput" placeholder="Ex: 357538638">
+    <button onclick="verifyID()">SEARCH RECORD</button>
 </div>
 
-<div id="result">
-    <div class="res-head">
-        <img id="u-img" src="" class="p-img">
-        <div style="text-align: left;">
-            <div id="u-id" style="color:red; font-weight:bold;"></div>
-            <div id="u-name" style="font-size: 18px; font-weight:bold; color:var(--p-blue);"></div>
+<div id="resultCard">
+    <div class="org-tag">M.G.T OFFICIAL VERIFICATION</div>
+    <div class="result-header">
+        <img id="u_photo" src="" alt="Photo" class="profile-pic">
+        <div>
+            <div id="u_resident" class="user-id-header"></div>
+            <div id="u_name" style="font-weight: bold; font-size: 20px; color: #1a237e;"></div>
         </div>
     </div>
-    <div class="info" id="info-box"></div>
-    <button onclick="location.reload()" style="margin:15px; width:80%; background:#666;">NEW SEARCH</button>
+    
+    <div class="info-grid">
+        <div class="label">NAME</div> <div class="value" id="res_name"></div>
+        <div class="label">TRAINER</div> <div class="value" id="u_trainer"></div>
+        <div class="label">LOCATION</div> <div class="value" id="u_loc"></div>
+        <div class="label">ISSUE DATE</div> <div class="value" id="u_issue"></div>
+        <div class="label">EXPIRY DATE</div> <div class="value" id="u_expiry" style="color: #d32f2f; font-weight: bold;"></div>
+        <div class="label">CERTIFIED AS</div> <div class="value" id="u_as"></div>
+        <div class="label">STATUS</div> <div class="value" style="color: green; font-weight: bold;">✓ VERIFIED</div>
+    </div>
+
+    <div class="qr-section">
+        <img id="qr_image" src="" alt="QR Code">
+        <div class="qr-text">Scan to verify this record online</div>
+    </div>
+
+    <button onclick="window.location.reload()" style="margin: 20px; width: calc(100% - 40px); background: #666;">NEW SEARCH</button>
 </div>
 
+<footer>
+    © 2026 M.G.T - Management Group Training.<br>
+    Verified Record Scheme for Construction Industry Scaffolders.
+</footer>
+
 <script>
-    async function check() {
-        const id = document.getElementById('idInput').value.trim();
-        if(!id) return alert("Enter ID");
+    async function verifyID() {
+        const inputID = document.getElementById('certInput').value.trim();
+        const loader = document.getElementById('loader');
+        const resultCard = document.getElementById('resultCard');
+        const searchBox = document.getElementById('searchBox');
         
-        const sId = '1VUOSxbE0F58jZliNYntcalr47nw4I0of8gS3IUFkS0Q';
-        const url = `https://docs.google.com/spreadsheets/d/${sId}/gviz/tq?tqx=out:csv`;
+        if (!inputID) {
+            alert("Please enter a Resident ID!");
+            return;
+        }
+
+        loader.style.display = "block";
+
+        const sheetId = '1VUOSxbE0F58jZliNYntcalr47nw4I0of8gS3IUFkS0Q';
+        const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv`;
 
         try {
-            const res = await fetch(url);
-            const csv = await res.text();
-            const rows = csv.split('\n').map(r => r.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(c => c.replace(/"/g, '').trim()));
-            const data = rows.find(r => r[3] === id);
+            const response = await fetch(url);
+            const data = await response.text();
+            
+            const rows = data.split('\n').map(row => 
+                row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(cell => cell.replace(/"/g, '').trim())
+            );
 
-            if(data) {
-                document.getElementById('u-id').innerText = "ID: " + data[3];
-                document.getElementById('u-name').innerText = data[0];
-                document.getElementById('u-img').src = data[7];
-                document.getElementById('info-box').innerHTML = `
-                    <div class="l">NAME</div><div class="v">${data[0]}</div>
-                    <div class="l">LOCATION</div><div class="v">${data[2]}</div>
-                    <div class="l">EXPIRY</div><div class="v" style="color:red; font-weight:bold;">${data[5]}</div>
-                    <div class="l">STATUS</div><div class="v" style="color:green; font-weight:bold;">✓ VERIFIED</div>
-                `;
-                document.getElementById('result').style.display = "block";
-                document.getElementById('searchArea').style.display = "none";
-            } else { alert("Record Not Found"); }
-        } catch (e) { alert("Error!"); }
+            const match = rows.find(row => row[3] === inputID);
+
+            if (match) {
+                document.getElementById('u_resident').innerText = "ID: " + match[3];
+                document.getElementById('u_name').innerText = match[0];
+                document.getElementById('res_name').innerText = match[0];
+                document.getElementById('u_trainer').innerText = match[1];
+                document.getElementById('u_loc').innerText = match[2];
+                document.getElementById('u_issue').innerText = match[4];
+                document.getElementById('u_expiry').innerText = match[5];
+                document.getElementById('u_as').innerText = match[6];
+                document.getElementById('u_photo').src = match[7]; 
+                
+                // QR Code জেনারেট করা হচ্ছে বর্তমান সাইটের লিংকের সাথে
+                const currentSiteURL = window.location.href;
+                document.getElementById('qr_image').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(currentSiteURL)}`;
+                
+                resultCard.style.display = "block";
+                searchBox.style.display = "none";
+            } else {
+                alert("No Record Found for ID: " + inputID);
+            }
+        } catch (error) {
+            console.error(error);
+            alert("Error connecting to database. Please check your sheet sharing settings.");
+        } finally {
+            loader.style.display = "none";
+        }
     }
 </script>
+
 </body>
 </html>
