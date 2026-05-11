@@ -1,147 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>M.G.T - Scaffolder Record Verification</title>
-    <style>
-        :root { --primary-blue: #1a237e; --accent-red: #d32f2f; --bg-gray: #f8f9fa; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #e9ecef; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
-        
-        header { width: 100%; background: var(--primary-blue); color: white; padding: 20px 0; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .heading-main { font-size: 20px; font-weight: bold; letter-spacing: 1px; margin: 0; padding: 0 10px; text-transform: uppercase; }
-        .sub-heading { font-size: 16px; margin-top: 5px; color: #ffeb3b; font-weight: bold; }
-
-        .container { background: white; width: 90%; max-width: 450px; margin-top: 40px; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-top: 5px solid var(--accent-red); }
-        h2 { font-size: 18px; color: #333; margin-top: 0; }
-        input[type="text"] { width: 100%; padding: 15px; margin: 20px 0; border: 2px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 16px; outline: none; transition: 0.3s; }
-        input[type="text"]:focus { border-color: var(--primary-blue); }
-        button { width: 100%; background: var(--primary-blue); color: white; padding: 15px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
-        button:hover { background: #0d47a1; transform: translateY(-1px); }
-
-        #resultCard { display: none; background: white; width: 95%; max-width: 550px; margin: 30px 0; border-radius: 15px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.15); border: 1px solid #ddd; }
-        .org-tag { background: #f1f1f1; padding: 10px; text-align: center; font-weight: bold; color: var(--primary-blue); border-bottom: 1px solid #eee; }
-        .result-header { padding: 20px; display: flex; align-items: center; gap: 20px; background: linear-gradient(to right, #ffffff, #f9f9f9); }
-        .profile-pic { width: 110px; height: 135px; border: 3px solid var(--primary-blue); border-radius: 5px; object-fit: cover; background: #eee; }
-        .user-id-header { color: var(--accent-red); font-weight: bold; font-size: 18px; margin-bottom: 5px; }
-        
-        .info-grid { padding: 20px; display: grid; grid-template-columns: 1fr 1.5fr; gap: 12px; font-size: 14px; background: white; }
-        .label { font-weight: bold; color: #555; background: #f8f9fa; padding: 10px; border-radius: 5px; border-left: 4px solid var(--primary-blue); }
-        .value { padding: 10px; color: #222; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; }
-
-        /* QR Code Styling */
-        .qr-section { text-align: center; padding: 20px; background: #f9f9f9; border-top: 1px dashed #ccc; }
-        .qr-section img { width: 120px; height: 120px; border: 5px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .qr-text { font-size: 11px; color: #777; margin-top: 8px; text-transform: uppercase; }
-
-        footer { margin-top: auto; padding: 25px; font-size: 12px; color: #666; text-align: center; line-height: 1.6; }
-        .loader { display: none; border: 4px solid #f3f3f3; border-top: 4px solid var(--primary-blue); border-radius: 50%; width: 35px; height: 35px; animation: spin 1s linear infinite; margin: 20px auto; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M.G.T Record Verification</title>
+<style>
+:root { --primary-blue: #1a237e; --accent-red: #d32f2f; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #e9ecef; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+header { width: 100%; background: var(--primary-blue); color: white; padding: 25px 0; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+.main-logo { width: 110px; height: auto; margin-bottom: 15px; display: block; margin-left: auto; margin-right: auto; filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.3)); }
+.heading-main { font-size: 18px; font-weight: bold; margin: 0; padding: 0 15px; text-transform: uppercase; }
+.sub-heading { font-size: 15px; margin-top: 8px; color: #ffeb3b; font-weight: bold; }
+.container { background: white; width: 90%; max-width: 450px; margin-top: 30px; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-top: 5px solid var(--accent-red); text-align: center; }
+input[type="text"] { width: 100%; padding: 15px; margin: 20px 0; border: 2px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 16px; text-align: center; outline: none; }
+button { width: 100%; background: var(--primary-blue); color: white; padding: 15px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; }
+#resultCard { display: none; background: white; width: 95%; max-width: 550px; margin: 30px 0; border-radius: 15px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.15); border: 1px solid #ddd; }
+.result-header { padding: 20px; display: flex; align-items: center; gap: 20px; }
+.profile-pic { width: 110px; height: 135px; border: 3px solid var(--primary-blue); border-radius: 5px; object-fit: cover; }
+.info-grid { padding: 20px; display: grid; grid-template-columns: 1fr 1.5fr; gap: 12px; font-size: 14px; text-align: left; }
+.label { font-weight: bold; color: #555; background: #f8f9fa; padding: 10px; border-radius: 5px; border-left: 4px solid var(--primary-blue); }
+.value { padding: 10px; color: #222; border-bottom: 1px solid #f0f0f0; }
+.qr-section { text-align: center; padding: 20px; background: #f9f9f9; border-top: 1px dashed #ccc; }
+.qr-section img { width: 130px; height: 130px; border: 4px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+footer { margin-top: auto; padding: 25px; font-size: 12px; color: #666; text-align: center; }
+.loader { display: none; border: 4px solid #f3f3f3; border-top: 4px solid var(--primary-blue); border-radius: 50%; width: 35px; height: 35px; animation: spin 1s linear infinite; margin: 20px auto; }
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+</style>
 </head>
 <body>
 
 <header>
+    <img src="https://raw.githubusercontent.com/mgt-om-crypto/mgt-certificate-verify/main/27764.png" alt="MGT Logo" class="main-logo">
     <div class="heading-main">CONSTRUCTION INDUSTRY SCAFFOLDERS RECORD SCHEME</div>
     <div class="sub-heading">Organization: M.G.T</div>
 </header>
 
 <div class="container" id="searchBox">
     <h2>Record Verification Portal</h2>
-    <p style="font-size: 14px; color: #666;">Enter your Resident ID / Iqama Number to verify</p>
     <div id="loader" class="loader"></div>
-    <input type="text" id="certInput" placeholder="Ex: 357538638">
+    <input type="text" id="certInput" placeholder="Enter Resident ID / Iqama">
     <button onclick="verifyID()">SEARCH RECORD</button>
 </div>
 
 <div id="resultCard">
-    <div class="org-tag">M.G.T OFFICIAL VERIFICATION</div>
+    <div style="background: #f1f1f1; padding: 10px; text-align: center; font-weight: bold; color: var(--primary-blue);">M.G.T OFFICIAL VERIFICATION</div>
     <div class="result-header">
-        <img id="u_photo" src="" alt="Photo" class="profile-pic">
+        <img id="u_photo" src="" alt="Photo" class="profile-pic" onerror="this.src='https://via.placeholder.com/110x135?text=No+Photo'">
         <div>
-            <div id="u_resident" class="user-id-header"></div>
+            <div id="u_resident" style="color: var(--accent-red); font-weight: bold; font-size: 18px; margin-bottom: 5px;"></div>
             <div id="u_name" style="font-weight: bold; font-size: 20px; color: #1a237e;"></div>
         </div>
     </div>
+    <div class="info-grid" id="infoContent"></div>
     
-    <div class="info-grid">
-        <div class="label">NAME</div> <div class="value" id="res_name"></div>
-        <div class="label">TRAINER</div> <div class="value" id="u_trainer"></div>
-        <div class="label">LOCATION</div> <div class="value" id="u_loc"></div>
-        <div class="label">ISSUE DATE</div> <div class="value" id="u_issue"></div>
-        <div class="label">EXPIRY DATE</div> <div class="value" id="u_expiry" style="color: #d32f2f; font-weight: bold;"></div>
-        <div class="label">CERTIFIED AS</div> <div class="value" id="u_as"></div>
-        <div class="label">STATUS</div> <div class="value" style="color: green; font-weight: bold;">✓ VERIFIED</div>
-    </div>
-
     <div class="qr-section">
         <img id="qr_image" src="" alt="QR Code">
-        <div class="qr-text">Scan to verify this record online</div>
+        <div style="font-size: 11px; color: #777; margin-top: 8px;">SCAN TO VERIFY THIS RECORD</div>
     </div>
 
-    <button onclick="window.location.reload()" style="margin: 20px; width: calc(100% - 40px); background: #666;">NEW SEARCH</button>
+    <button onclick="window.location.reload()" style="margin: 20px; width: calc(100% - 40px); background: #666; color: white; padding: 12px; border: none; border-radius: 8px;">NEW SEARCH</button>
 </div>
 
 <footer>
-    © 2012 M.G.T - Management Group Training.<br>
+    © 2026 M.G.T - Management Group Training.<br>
     Verified Record Scheme for Construction Industry Scaffolders.
 </footer>
 
 <script>
-    async function verifyID() {
-        const inputID = document.getElementById('certInput').value.trim();
-        const loader = document.getElementById('loader');
-        const resultCard = document.getElementById('resultCard');
-        const searchBox = document.getElementById('searchBox');
-        
-        if (!inputID) {
-            alert("Please enter a Resident ID!");
-            return;
-        }
+if (window.location.href.includes("index.html")) {
+    window.history.replaceState({}, document.title, window.location.pathname.replace("index.html", ""));
+}
 
-        loader.style.display = "block";
+async function verifyID() {
+    const inputID = document.getElementById('certInput').value.trim();
+    const loader = document.getElementById('loader');
+    if (!inputID) { alert("Please enter ID!"); return; }
+    loader.style.display = "block";
 
-        const sheetId = '1VUOSxbE0F58jZliNYntcalr47nw4I0of8gS3IUFkS0Q';
-        const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv`;
+    const sheetId = '1VUOSxbE0F58jZliNYntcalr47nw4I0of8gS3IUFkS0Q';
+    const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv`;
 
-        try {
-            const response = await fetch(url);
-            const data = await response.text();
+    try {
+        const response = await fetch(url);
+        const data = await response.text();
+        const rows = data.split('\n').map(row => row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(cell => cell.replace(/"/g, '').trim()));
+        const match = rows.find(row => row[3] === inputID);
+
+        if (match) {
+            document.getElementById('u_resident').innerText = "ID: " + match[3];
+            document.getElementById('u_name').innerText = match[0];
+            document.getElementById('infoContent').innerHTML = `
+                <div class="label">NAME</div> <div class="value">${match[0]}</div>
+                <div class="label">TRAINER</div> <div class="value">${match[1]}</div>
+                <div class="label">LOCATION</div> <div class="value">${match[2]}</div>
+                <div class="label">ISSUE DATE</div> <div class="value">${match[4]}</div>
+                <div class="label">EXPIRY DATE</div> <div class="value" style="color:red; font-weight:bold;">${match[5]}</div>
+                <div class="label">CERTIFIED AS</div> <div class="value">${match[6]}</div>
+                <div class="label">STATUS</div> <div class="value" style="color:green; font-weight:bold;">✓ VERIFIED</div>
+            `;
+            document.getElementById('u_photo').src = match[7]; 
             
-            const rows = data.split('\n').map(row => 
-                row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(cell => cell.replace(/"/g, '').trim())
-            );
+            // কিউআর কোডে ব্যক্তির তথ্য যুক্ত করা
+            const qrText = `Verified by M.G.T\nName: ${match[0]}\nID: ${match[3]}\nExpiry: ${match[5]}\nStatus: VERIFIED`;
+            document.getElementById('qr_image').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(qrText)}`;
 
-            const match = rows.find(row => row[3] === inputID);
-
-            if (match) {
-                document.getElementById('u_resident').innerText = "ID: " + match[3];
-                document.getElementById('u_name').innerText = match[0];
-                document.getElementById('res_name').innerText = match[0];
-                document.getElementById('u_trainer').innerText = match[1];
-                document.getElementById('u_loc').innerText = match[2];
-                document.getElementById('u_issue').innerText = match[4];
-                document.getElementById('u_expiry').innerText = match[5];
-                document.getElementById('u_as').innerText = match[6];
-                document.getElementById('u_photo').src = match[7]; 
-                
-                // QR Code জেনারেট করা হচ্ছে বর্তমান সাইটের লিংকের সাথে
-                const currentSiteURL = window.location.href;
-                document.getElementById('qr_image').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(currentSiteURL)}`;
-                
-                resultCard.style.display = "block";
-                searchBox.style.display = "none";
-            } else {
-                alert("No Record Found for ID: " + inputID);
-            }
-        } catch (error) {
-            console.error(error);
-            alert("Error connecting to database. Please check your sheet sharing settings.");
-        } finally {
-            loader.style.display = "none";
-        }
-    }
+            document.getElementById('resultCard').style.display = "block";
+            document.getElementById('searchBox').style.display = "none";
+        } else { alert("Record Not Found!"); }
+    } catch (e) { alert("Error!"); }
+    finally { loader.style.display = "none"; }
+}
 </script>
-
 </body>
 </html>
