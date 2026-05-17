@@ -3,39 +3,228 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>M.G.T - Scaffolder Record Verification</title>
+    <title>M.G.T - Premium Scaffolder Record Verification</title>
+    <!-- Google Fonts for Premium Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        :root { --primary-blue: #1a237e; --accent-red: #d32f2f; --bg-gray: #f8f9fa; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #e9ecef; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
-        
-        header { width: 100%; background: var(--primary-blue); color: white; padding: 20px 0; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .heading-main { font-size: 20px; font-weight: bold; letter-spacing: 1px; margin: 0; padding: 0 10px; text-transform: uppercase; }
-        .sub-heading { font-size: 16px; margin-top: 5px; color: #ffeb3b; font-weight: bold; }
+        :root { 
+            --primary-dark: #0f172a; /* Deep Elite Navy */
+            --accent-gold: #b45309;  /* Premium Gold/Amber */
+            --accent-gold-light: #fef3c7;
+            --success-green: #10b981;
+            --bg-gradient: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            --card-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
 
-        .container { background: white; width: 90%; max-width: 450px; margin-top: 40px; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-top: 5px solid var(--accent-red); }
-        h2 { font-size: 18px; color: #333; margin-top: 0; }
-        input[type="text"] { width: 100%; padding: 15px; margin: 20px 0; border: 2px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 16px; outline: none; transition: 0.3s; }
-        input[type="text"]:focus { border-color: var(--primary-blue); }
-        button { width: 100%; background: var(--primary-blue); color: white; padding: 15px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
-        button:hover { background: #0d47a1; transform: translateY(-1px); }
-
-        #resultCard { display: none; background: white; width: 95%; max-width: 550px; margin: 30px 0; border-radius: 15px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.15); border: 1px solid #ddd; }
-        .org-tag { background: #f1f1f1; padding: 10px; text-align: center; font-weight: bold; color: var(--primary-blue); border-bottom: 1px solid #eee; }
-        .result-header { padding: 20px; display: flex; align-items: center; gap: 20px; background: linear-gradient(to right, #ffffff, #f9f9f9); }
-        .profile-pic { width: 110px; height: 135px; border: 3px solid var(--primary-blue); border-radius: 5px; object-fit: cover; background: #eee; }
-        .user-id-header { color: var(--accent-red); font-weight: bold; font-size: 18px; margin-bottom: 5px; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: var(--bg-gradient); 
+            margin: 0; 
+            padding: 0; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            min-height: 100vh;
+            color: #334155;
+        }
         
-        .info-grid { padding: 20px; display: grid; grid-template-columns: 1fr 1.5fr; gap: 12px; font-size: 14px; background: white; }
-        .label { font-weight: bold; color: #555; background: #f8f9fa; padding: 10px; border-radius: 5px; border-left: 4px solid var(--primary-blue); }
-        .value { padding: 10px; color: #222; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; }
+        header { 
+            width: 100%; 
+            background: var(--primary-dark); 
+            color: white; 
+            padding: 25px 0; 
+            text-align: center; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            border-bottom: 4px solid var(--accent-gold);
+        }
+        .heading-main { 
+            font-size: 22px; 
+            font-weight: 700; 
+            letter-spacing: 1.5px; 
+            margin: 0; 
+            padding: 0 15px; 
+            text-transform: uppercase; 
+        }
+        .sub-heading { 
+            font-size: 14px; 
+            margin-top: 8px; 
+            color: #fbbf24; 
+            font-weight: 500; 
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .container { 
+            background: white; 
+            width: 90%; 
+            max-width: 450px; 
+            margin-top: 50px; 
+            padding: 35px; 
+            border-radius: 16px; 
+            box-shadow: var(--card-shadow); 
+            border-top: 5px solid var(--primary-dark);
+            transition: all 0.3s ease;
+        }
+        h2 { font-size: 20px; color: var(--primary-dark); margin-top: 0; font-weight: 600; }
+        
+        input[type="text"] { 
+            width: 100%; 
+            padding: 16px; 
+            margin: 20px 0; 
+            border: 2px solid #cbd5e1; 
+            border-radius: 10px; 
+            box-sizing: border-box; 
+            font-size: 16px; 
+            outline: none; 
+            transition: all 0.3s; 
+            background: #f8fafc;
+        }
+        input[type="text"]:focus { 
+            border-color: var(--primary-dark); 
+            background: #white;
+            box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.1);
+        }
+        
+        button { 
+            width: 100%; 
+            background: var(--primary-dark); 
+            color: white; 
+            padding: 16px; 
+            border: none; 
+            border-radius: 10px; 
+            font-size: 16px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            box-shadow: 0 4px 6px rgba(15, 23, 42, 0.2); 
+            letter-spacing: 0.5px;
+        }
+        button:hover { 
+            background: #1e293b; 
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 12px rgba(15, 23, 42, 0.3);
+        }
+
+        /* Premium Result Card */
+        #resultCard { 
+            display: none; 
+            background: white; 
+            width: 95%; 
+            max-width: 550px; 
+            margin: 40px 0; 
+            border-radius: 20px; 
+            overflow: hidden; 
+            box-shadow: var(--card-shadow); 
+            border: 1px solid #e2e8f0; 
+        }
+        .org-tag { 
+            background: var(--accent-gold-light); 
+            padding: 12px; 
+            text-align: center; 
+            font-weight: 600; 
+            font-size: 13px;
+            color: var(--accent-gold); 
+            border-bottom: 1px solid #fef08a; 
+            letter-spacing: 1px;
+        }
+        .result-header { 
+            padding: 30px; 
+            display: flex; 
+            align-items: center; 
+            gap: 25px; 
+            background: linear-gradient(to right, #f8fafc, #ffffff);
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .profile-pic { 
+            width: 110px; 
+            height: 140px; 
+            border: 3px solid var(--primary-dark); 
+            border-radius: 8px; 
+            object-fit: cover; 
+            background: #f1f5f9; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+        .user-id-header { 
+            color: var(--accent-gold); 
+            font-weight: 600; 
+            font-size: 16px; 
+            margin-bottom: 6px; 
+            background: #fef3c7;
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+        
+        .info-grid { 
+            padding: 25px; 
+            display: grid; 
+            grid-template-columns: 1fr 1.5fr; 
+            gap: 14px; 
+            font-size: 14px; 
+            background: white; 
+        }
+        .label { 
+            font-weight: 600; 
+            color: #475569; 
+            background: #f1f5f9; 
+            padding: 12px; 
+            border-radius: 6px; 
+            border-left: 4px solid var(--primary-dark); 
+            display: flex;
+            align-items: center;
+        }
+        .value { 
+            padding: 12px; 
+            color: var(--primary-dark); 
+            font-weight: 500;
+            border-bottom: 1px solid #f1f5f9; 
+            display: flex; 
+            align-items: center; 
+        }
 
         /* QR Code Styling */
-        .qr-section { text-align: center; padding: 20px; background: #f9f9f9; border-top: 1px dashed #ccc; }
-        .qr-section img { width: 120px; height: 120px; border: 5px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .qr-text { font-size: 11px; color: #777; margin-top: 8px; text-transform: uppercase; }
+        .qr-section { 
+            text-align: center; 
+            padding: 25px; 
+            background: #f8fafc; 
+            border-top: 1px dashed #cbd5e1; 
+        }
+        .qr-section img { 
+            width: 130px; 
+            height: 130px; 
+            border: 6px solid white; 
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
+        }
+        .qr-text { 
+            font-size: 12px; 
+            color: #64748b; 
+            margin-top: 10px; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px;
+        }
 
-        footer { margin-top: auto; padding: 25px; font-size: 12px; color: #666; text-align: center; line-height: 1.6; }
-        .loader { display: none; border: 4px solid #f3f3f3; border-top: 4px solid var(--primary-blue); border-radius: 50%; width: 35px; height: 35px; animation: spin 1s linear infinite; margin: 20px auto; }
+        footer { 
+            margin-top: auto; 
+            padding: 30px; 
+            font-size: 13px; 
+            color: #64748b; 
+            text-align: center; 
+            line-height: 1.6; 
+        }
+        
+        /* Premium Loader */
+        .loader { 
+            display: none; 
+            border: 4px solid #e2e8f0; 
+            border-top: 4px solid var(--primary-dark); 
+            border-radius: 50%; 
+            width: 40px; 
+            height: 40px; 
+            animation: spin 0.8s linear infinite; 
+            margin: 20px auto; 
+        }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
@@ -48,19 +237,19 @@
 
 <div class="container" id="searchBox">
     <h2>Record Verification Portal</h2>
-    <p style="font-size: 14px; color: #666;">Enter your Resident ID / Iqama Number to verify</p>
+    <p style="font-size: 14px; color: #64748b; margin-bottom: 25px;">Enter your Resident ID / Iqama Number to verify your records.</p>
     <div id="loader" class="loader"></div>
     <input type="text" id="certInput" placeholder="Ex: 357538638">
     <button onclick="verifyID()">SEARCH RECORD</button>
 </div>
 
 <div id="resultCard">
-    <div class="org-tag">M.G.T OFFICIAL VERIFICATION</div>
+    <div class="org-tag">✦ M.G.T OFFICIAL PREMIUM VERIFICATION ✦</div>
     <div class="result-header">
         <img id="u_photo" src="" alt="Photo" class="profile-pic">
         <div>
             <div id="u_resident" class="user-id-header"></div>
-            <div id="u_name" style="font-weight: bold; font-size: 20px; color: #1a237e;"></div>
+            <div id="u_name" style="font-weight: 700; font-size: 22px; color: var(--primary-dark);"></div>
         </div>
     </div>
     
@@ -69,9 +258,9 @@
         <div class="label">TRAINER</div> <div class="value" id="u_trainer"></div>
         <div class="label">LOCATION</div> <div class="value" id="u_loc"></div>
         <div class="label">ISSUE DATE</div> <div class="value" id="u_issue"></div>
-        <div class="label">EXPIRY DATE</div> <div class="value" id="u_expiry" style="color: #d32f2f; font-weight: bold;"></div>
-        <div class="label">CERTIFIED AS</div> <div class="value" id="u_as"></div>
-        <div class="label">STATUS</div> <div class="value" style="color: green; font-weight: bold;">✓ VERIFIED</div>
+        <div class="label">EXPIRY DATE</div> <div class="value" id="u_expiry" style="color: #b91c1c; font-weight: 700;"></div>
+        <div class="label">CERTIFIED AS</div> <div class="value" id="u_as" style="font-weight: 600;"></div>
+        <div class="label">STATUS</div> <div class="value" style="color: var(--success-green); font-weight: 700;">✓ VERIFIED RECORD</div>
     </div>
 
     <div class="qr-section">
@@ -79,12 +268,12 @@
         <div class="qr-text">Scan to verify this record online</div>
     </div>
 
-    <button onclick="window.location.reload()" style="margin: 20px; width: calc(100% - 40px); background: #666;">NEW SEARCH</button>
+    <button onclick="window.location.reload()" style="margin: 20px; width: calc(100% - 40px); background: #475569;">NEW SEARCH</button>
 </div>
 
 <footer>
     © 2012 M.G.T - Management Group Training.<br>
-    Verified Record Scheme for Construction Industry Scaffolders.
+    <span style="font-weight: 500;">Verified Record Scheme for Construction Industry Scaffolders.</span>
 </footer>
 
 <script>
@@ -113,7 +302,7 @@
             );
 
             const match = rows.find(row => row[3] === inputID);
-9
+
             if (match) {
                 document.getElementById('u_resident').innerText = "ID: " + match[3];
                 document.getElementById('u_name').innerText = match[0];
@@ -125,7 +314,6 @@
                 document.getElementById('u_as').innerText = match[6];
                 document.getElementById('u_photo').src = match[7]; 
                 
-                // QR Code জেনারেট করা হচ্ছে বর্তমান সাইটের লিংকের সাথে
                 const currentSiteURL = window.location.href;
                 document.getElementById('qr_image').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(currentSiteURL)}`;
                 
